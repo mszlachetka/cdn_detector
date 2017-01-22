@@ -5,6 +5,7 @@
 #include <QDnsLookup>
 #include <QMessageBox>
 #include <QNetworkProxy>
+#include "sleeper.h"
 
 namespace Ui {
 class MainWindow;
@@ -21,16 +22,13 @@ public:
 private slots:
     void on_buttonCheck_clicked();
     void getDNS();
-    void getDNS_USA();
 
 private:
     Ui::MainWindow *ui;
     QDnsLookup *dns;
-    QDnsLookup *dns_usa;
 
-
-    QString addressPL;
-    QString addressUSA;
+    int current_row = 0;
+    int current_read_query = 0;
 
     bool isCDNbyProvider = false;
     bool isCDNbyAddress = false;

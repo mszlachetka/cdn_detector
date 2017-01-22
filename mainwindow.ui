@@ -15,95 +15,15 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout">
-        <item>
-         <widget class="QLabel" name="label">
-          <property name="text">
-           <string>NS PL</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="labelNS">
-          <property name="text">
-           <string>-</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_4">
-        <item>
-         <widget class="QLabel" name="label_4">
-          <property name="text">
-           <string>NS USA</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="labelNS_2">
-          <property name="text">
-           <string>-</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
-        <item>
-         <widget class="QLabel" name="label_2">
-          <property name="text">
-           <string>Address from PL DNS</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="labelAddressPL">
-          <property name="text">
-           <string>-</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_3">
-        <item>
-         <widget class="QLabel" name="label_3">
-          <property name="text">
-           <string>Address from USA DNS</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="labelAddressUSA">
-          <property name="text">
-           <string>-</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_5">
-        <item>
-         <widget class="QLabel" name="labelCDN">
-          <property name="text">
-           <string>CDN</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-     </layout>
-    </item>
     <item row="1" column="0">
      <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QLabel" name="labelCDN">
+        <property name="text">
+         <string>CDN</string>
+        </property>
+       </widget>
+      </item>
       <item>
        <widget class="QLineEdit" name="lineEditHost"/>
       </item>
@@ -116,12 +36,131 @@
       </item>
      </layout>
     </item>
+    <item row="0" column="0">
+     <widget class="QTableWidget" name="tableWidget">
+      <row>
+       <property name="text">
+        <string>1</string>
+       </property>
+      </row>
+      <row>
+       <property name="text">
+        <string>2</string>
+       </property>
+      </row>
+      <row>
+       <property name="text">
+        <string>3</string>
+       </property>
+      </row>
+      <row>
+       <property name="text">
+        <string>4</string>
+       </property>
+      </row>
+      <column>
+       <property name="text">
+        <string>DNS</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Country</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>NS</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Address</string>
+       </property>
+      </column>
+      <item row="0" column="0">
+       <property name="text">
+        <string>65.212.71.222</string>
+       </property>
+      </item>
+      <item row="0" column="1">
+       <property name="text">
+        <string>USA</string>
+       </property>
+      </item>
+      <item row="0" column="2">
+       <property name="text">
+        <string>-</string>
+       </property>
+      </item>
+      <item row="0" column="3">
+       <property name="text">
+        <string>-</string>
+       </property>
+      </item>
+      <item row="1" column="0">
+       <property name="text">
+        <string>176.31.176.126</string>
+       </property>
+      </item>
+      <item row="1" column="1">
+       <property name="text">
+        <string>FRANCE</string>
+       </property>
+      </item>
+      <item row="1" column="2">
+       <property name="text">
+        <string>-</string>
+       </property>
+      </item>
+      <item row="1" column="3">
+       <property name="text">
+        <string>-</string>
+       </property>
+      </item>
+      <item row="2" column="0">
+       <property name="text">
+        <string>178.217.136.98</string>
+       </property>
+      </item>
+      <item row="2" column="1">
+       <property name="text">
+        <string>POLAND</string>
+       </property>
+      </item>
+      <item row="2" column="2">
+       <property name="text">
+        <string>-</string>
+       </property>
+      </item>
+      <item row="2" column="3">
+       <property name="text">
+        <string>-</string>
+       </property>
+      </item>
+      <item row="3" column="0">
+       <property name="text">
+        <string>210.168.200.74</string>
+       </property>
+      </item>
+      <item row="3" column="1">
+       <property name="text">
+        <string>JAPAN</string>
+       </property>
+      </item>
+      <item row="3" column="2">
+       <property name="text">
+        <string>-</string>
+       </property>
+      </item>
+      <item row="3" column="3">
+       <property name="text">
+        <string>-</string>
+       </property>
+      </item>
+     </widget>
+    </item>
    </layout>
-   <zorder>layoutWidget</zorder>
-   <zorder>layoutWidget_2</zorder>
-   <zorder>label_2</zorder>
-   <zorder>labelCDN</zorder>
-   <zorder>labelCDN_PL</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -132,14 +171,6 @@
      <height>17</height>
     </rect>
    </property>
-  </widget>
-  <widget class="QToolBar" name="mainToolBar">
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
