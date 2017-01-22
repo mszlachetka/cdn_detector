@@ -34,6 +34,7 @@ private slots:
 
 
 
+
 private:
     Ui::MainWindow *ui;
 
@@ -43,7 +44,9 @@ private:
 
     int current_many = 0;
 
-
+    int howManyCDN=1;
+    int howManyAll=1;
+    int howProgress=1;
 
     bool isCDNbyProvider = false;
 };

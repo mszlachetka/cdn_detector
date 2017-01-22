@@ -8,6 +8,9 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    ui->labelNaIle->setText("Progress: "+QString::number(howProgress)+"/"+QString::number(howManyAll));
+    ui->labelProcentowo->setText("CDN found in "+QString::number(howManyCDN/howManyAll)+"%");
+
 }
 
 MainWindow::~MainWindow()
@@ -29,6 +32,7 @@ void MainWindow::on_buttonCheck_clicked()
      dns->setNameserver(name);
      dns->lookup();
      ++current_row;
+
 
 }
 
@@ -105,7 +109,7 @@ void MainWindow::getDNS()
              {
                  continue;
              }
-             if( ui->tableWidget->item(i,3)->text().left(7)!=ui->tableWidget->item(j,3)->text().left(7))
+             if( ui->tableWidget->item(i,3)->text().left(10)!=ui->tableWidget->item(j,3)->text().left(10))
              {
                     cdnFound = true;
                     break;
@@ -143,6 +147,9 @@ void MainWindow::on_buttonLoadAndCheckMany_clicked()
     if(fileName.contains(".txt"))
     {
 
+    howManyAll = 0;
+    howManyCDN = 0;
+    howProgress=0;
     ui->listWidget->clear();
     QFile mFile(fileName);
 
@@ -152,15 +159,19 @@ void MainWindow::on_buttonLoadAndCheckMany_clicked()
 
          while (!mFileData.atEnd())
          {
-
+           ++howManyAll;
            line= mFileData.readLine();
            line.replace(" ","");
+           line=line.toLower();
            ui->listWidget->addItem(line);
          }
 
 
 
     mFile.close();
+
+    ui->labelNaIle->setText("Progress: "+QString::number(howProgress)+"/"+QString::number(howManyAll));
+    ui->labelProcentowo->setText("CDN found in "+QString::number(howManyCDN/howManyAll)+"%");
     }
 }
 
@@ -214,6 +225,7 @@ void MainWindow::getDNS_many()
      bool cdnFound = false;
     if(current_read_query == ui->tableWidget->rowCount())
     {
+            howProgress++;
         current_read_query = 0;
         current_row = 0;
 
@@ -233,7 +245,7 @@ void MainWindow::getDNS_many()
                  continue;
              }
 
-             if( ui->tableWidget->item(i,3)->text().left(7)!=ui->tableWidget->item(j,3)->text().left(7))
+             if( ui->tableWidget->item(i,3)->text().left(10)!=ui->tableWidget->item(j,3)->text().left(10))
                 {
                     QColor color;
                     color.setGreen(255);
@@ -258,7 +270,11 @@ void MainWindow::getDNS_many()
             QColor color;
             color.setGreen(255);
             ui->listWidget->item(current_many)->setBackgroundColor(color);
+                        howManyCDN++;
         }
+
+        ui->labelNaIle->setText("Progress: "+QString::number(howProgress)+"/"+QString::number(howManyAll));
+        ui->labelProcentowo->setText("CDN found in "+QString::number(100*(float)howManyCDN/howProgress)+"%");
 
         isCDNbyProvider = false;
 
