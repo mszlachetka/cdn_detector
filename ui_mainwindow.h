@@ -17,6 +17,7 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
+#include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
@@ -32,11 +33,16 @@ class Ui_MainWindow
 public:
     QWidget *centralWidget;
     QGridLayout *gridLayout;
+    QVBoxLayout *verticalLayout;
+    QTableWidget *tableWidget;
     QVBoxLayout *verticalLayout_2;
     QLabel *labelCDN;
     QLineEdit *lineEditHost;
     QPushButton *buttonCheck;
-    QTableWidget *tableWidget;
+    QVBoxLayout *verticalLayout_3;
+    QListWidget *listWidget;
+    QPushButton *buttonLoadAndCheckMany;
+    QPushButton *buttonCheckManyDomains;
     QMenuBar *menuBar;
     QStatusBar *statusBar;
 
@@ -44,34 +50,17 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(400, 300);
+        MainWindow->resize(425, 300);
+        MainWindow->setMaximumSize(QSize(16777215, 16777215));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         gridLayout = new QGridLayout(centralWidget);
         gridLayout->setSpacing(6);
         gridLayout->setContentsMargins(11, 11, 11, 11);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
-        verticalLayout_2 = new QVBoxLayout();
-        verticalLayout_2->setSpacing(6);
-        verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
-        labelCDN = new QLabel(centralWidget);
-        labelCDN->setObjectName(QStringLiteral("labelCDN"));
-
-        verticalLayout_2->addWidget(labelCDN);
-
-        lineEditHost = new QLineEdit(centralWidget);
-        lineEditHost->setObjectName(QStringLiteral("lineEditHost"));
-
-        verticalLayout_2->addWidget(lineEditHost);
-
-        buttonCheck = new QPushButton(centralWidget);
-        buttonCheck->setObjectName(QStringLiteral("buttonCheck"));
-
-        verticalLayout_2->addWidget(buttonCheck);
-
-
-        gridLayout->addLayout(verticalLayout_2, 1, 0, 1, 1);
-
+        verticalLayout = new QVBoxLayout();
+        verticalLayout->setSpacing(6);
+        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         tableWidget = new QTableWidget(centralWidget);
         if (tableWidget->columnCount() < 4)
             tableWidget->setColumnCount(4);
@@ -126,13 +115,70 @@ public:
         QTableWidgetItem *__qtablewidgetitem23 = new QTableWidgetItem();
         tableWidget->setItem(3, 3, __qtablewidgetitem23);
         tableWidget->setObjectName(QStringLiteral("tableWidget"));
+        tableWidget->setMaximumSize(QSize(700, 16777215));
 
-        gridLayout->addWidget(tableWidget, 0, 0, 1, 1);
+        verticalLayout->addWidget(tableWidget);
+
+        verticalLayout_2 = new QVBoxLayout();
+        verticalLayout_2->setSpacing(6);
+        verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
+        labelCDN = new QLabel(centralWidget);
+        labelCDN->setObjectName(QStringLiteral("labelCDN"));
+
+        verticalLayout_2->addWidget(labelCDN);
+
+        lineEditHost = new QLineEdit(centralWidget);
+        lineEditHost->setObjectName(QStringLiteral("lineEditHost"));
+
+        verticalLayout_2->addWidget(lineEditHost);
+
+        buttonCheck = new QPushButton(centralWidget);
+        buttonCheck->setObjectName(QStringLiteral("buttonCheck"));
+
+        verticalLayout_2->addWidget(buttonCheck);
+
+
+        verticalLayout->addLayout(verticalLayout_2);
+
+
+        gridLayout->addLayout(verticalLayout, 0, 0, 1, 1);
+
+        verticalLayout_3 = new QVBoxLayout();
+        verticalLayout_3->setSpacing(6);
+        verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
+        listWidget = new QListWidget(centralWidget);
+        listWidget->setObjectName(QStringLiteral("listWidget"));
+        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(listWidget->sizePolicy().hasHeightForWidth());
+        listWidget->setSizePolicy(sizePolicy);
+        listWidget->setMaximumSize(QSize(300, 16777215));
+
+        verticalLayout_3->addWidget(listWidget);
+
+        buttonLoadAndCheckMany = new QPushButton(centralWidget);
+        buttonLoadAndCheckMany->setObjectName(QStringLiteral("buttonLoadAndCheckMany"));
+        QSizePolicy sizePolicy1(QSizePolicy::Minimum, QSizePolicy::MinimumExpanding);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(buttonLoadAndCheckMany->sizePolicy().hasHeightForWidth());
+        buttonLoadAndCheckMany->setSizePolicy(sizePolicy1);
+
+        verticalLayout_3->addWidget(buttonLoadAndCheckMany);
+
+        buttonCheckManyDomains = new QPushButton(centralWidget);
+        buttonCheckManyDomains->setObjectName(QStringLiteral("buttonCheckManyDomains"));
+
+        verticalLayout_3->addWidget(buttonCheckManyDomains);
+
+
+        gridLayout->addLayout(verticalLayout_3, 0, 1, 1, 1);
 
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 400, 17));
+        menuBar->setGeometry(QRect(0, 0, 425, 17));
         MainWindow->setMenuBar(menuBar);
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QStringLiteral("statusBar"));
@@ -146,8 +192,6 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", Q_NULLPTR));
-        labelCDN->setText(QApplication::translate("MainWindow", "CDN", Q_NULLPTR));
-        buttonCheck->setText(QApplication::translate("MainWindow", "Check CDN", Q_NULLPTR));
         QTableWidgetItem *___qtablewidgetitem = tableWidget->horizontalHeaderItem(0);
         ___qtablewidgetitem->setText(QApplication::translate("MainWindow", "DNS", Q_NULLPTR));
         QTableWidgetItem *___qtablewidgetitem1 = tableWidget->horizontalHeaderItem(1);
@@ -201,6 +245,10 @@ public:
         ___qtablewidgetitem23->setText(QApplication::translate("MainWindow", "-", Q_NULLPTR));
         tableWidget->setSortingEnabled(__sortingEnabled);
 
+        labelCDN->setText(QApplication::translate("MainWindow", "CDN", Q_NULLPTR));
+        buttonCheck->setText(QApplication::translate("MainWindow", "Check Single CDN", Q_NULLPTR));
+        buttonLoadAndCheckMany->setText(QApplication::translate("MainWindow", "Load domains", Q_NULLPTR));
+        buttonCheckManyDomains->setText(QApplication::translate("MainWindow", "Check for all domains", Q_NULLPTR));
     } // retranslateUi
 
 };

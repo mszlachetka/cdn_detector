@@ -6,6 +6,7 @@
 #include <QMessageBox>
 #include <QNetworkProxy>
 #include "sleeper.h"
+#include <QFileDialog>
 
 namespace Ui {
 class MainWindow;
@@ -22,16 +23,26 @@ public:
 private slots:
     void on_buttonCheck_clicked();
     void getDNS();
+    void getDNS_many();
+
+    void on_buttonLoadAndCheckMany_clicked();
+
+    void on_buttonCheckManyDomains_clicked();
+
+
 
 private:
     Ui::MainWindow *ui;
-    QDnsLookup *dns;
 
+    QDnsLookup *dns;
     int current_row = 0;
     int current_read_query = 0;
 
+    int current_many = 0;
+
+
+
     bool isCDNbyProvider = false;
-    bool isCDNbyAddress = false;
 };
 
 #endif // MAINWINDOW_H

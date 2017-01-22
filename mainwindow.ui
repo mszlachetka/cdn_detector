@@ -6,159 +6,215 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
+    <width>425</width>
     <height>300</height>
    </rect>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>16777215</width>
+    <height>16777215</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="1" column="0">
-     <layout class="QVBoxLayout" name="verticalLayout_2">
+    <item row="0" column="0">
+     <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <widget class="QLabel" name="labelCDN">
-        <property name="text">
-         <string>CDN</string>
+       <widget class="QTableWidget" name="tableWidget">
+        <property name="maximumSize">
+         <size>
+          <width>700</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <row>
+         <property name="text">
+          <string>1</string>
+         </property>
+        </row>
+        <row>
+         <property name="text">
+          <string>2</string>
+         </property>
+        </row>
+        <row>
+         <property name="text">
+          <string>3</string>
+         </property>
+        </row>
+        <row>
+         <property name="text">
+          <string>4</string>
+         </property>
+        </row>
+        <column>
+         <property name="text">
+          <string>DNS</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Country</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>NS</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Address</string>
+         </property>
+        </column>
+        <item row="0" column="0">
+         <property name="text">
+          <string>65.212.71.222</string>
+         </property>
+        </item>
+        <item row="0" column="1">
+         <property name="text">
+          <string>USA</string>
+         </property>
+        </item>
+        <item row="0" column="2">
+         <property name="text">
+          <string>-</string>
+         </property>
+        </item>
+        <item row="0" column="3">
+         <property name="text">
+          <string>-</string>
+         </property>
+        </item>
+        <item row="1" column="0">
+         <property name="text">
+          <string>176.31.176.126</string>
+         </property>
+        </item>
+        <item row="1" column="1">
+         <property name="text">
+          <string>FRANCE</string>
+         </property>
+        </item>
+        <item row="1" column="2">
+         <property name="text">
+          <string>-</string>
+         </property>
+        </item>
+        <item row="1" column="3">
+         <property name="text">
+          <string>-</string>
+         </property>
+        </item>
+        <item row="2" column="0">
+         <property name="text">
+          <string>178.217.136.98</string>
+         </property>
+        </item>
+        <item row="2" column="1">
+         <property name="text">
+          <string>POLAND</string>
+         </property>
+        </item>
+        <item row="2" column="2">
+         <property name="text">
+          <string>-</string>
+         </property>
+        </item>
+        <item row="2" column="3">
+         <property name="text">
+          <string>-</string>
+         </property>
+        </item>
+        <item row="3" column="0">
+         <property name="text">
+          <string>210.168.200.74</string>
+         </property>
+        </item>
+        <item row="3" column="1">
+         <property name="text">
+          <string>JAPAN</string>
+         </property>
+        </item>
+        <item row="3" column="2">
+         <property name="text">
+          <string>-</string>
+         </property>
+        </item>
+        <item row="3" column="3">
+         <property name="text">
+          <string>-</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QLabel" name="labelCDN">
+          <property name="text">
+           <string>CDN</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="lineEditHost"/>
+        </item>
+        <item>
+         <widget class="QPushButton" name="buttonCheck">
+          <property name="text">
+           <string>Check Single CDN</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+    <item row="0" column="1">
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <item>
+       <widget class="QListWidget" name="listWidget">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>300</width>
+          <height>16777215</height>
+         </size>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="lineEditHost"/>
+       <widget class="QPushButton" name="buttonLoadAndCheckMany">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Load domains</string>
+        </property>
+       </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="buttonCheck">
+       <widget class="QPushButton" name="buttonCheckManyDomains">
         <property name="text">
-         <string>Check CDN</string>
+         <string>Check for all domains</string>
         </property>
        </widget>
       </item>
      </layout>
-    </item>
-    <item row="0" column="0">
-     <widget class="QTableWidget" name="tableWidget">
-      <row>
-       <property name="text">
-        <string>1</string>
-       </property>
-      </row>
-      <row>
-       <property name="text">
-        <string>2</string>
-       </property>
-      </row>
-      <row>
-       <property name="text">
-        <string>3</string>
-       </property>
-      </row>
-      <row>
-       <property name="text">
-        <string>4</string>
-       </property>
-      </row>
-      <column>
-       <property name="text">
-        <string>DNS</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Country</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>NS</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Address</string>
-       </property>
-      </column>
-      <item row="0" column="0">
-       <property name="text">
-        <string>65.212.71.222</string>
-       </property>
-      </item>
-      <item row="0" column="1">
-       <property name="text">
-        <string>USA</string>
-       </property>
-      </item>
-      <item row="0" column="2">
-       <property name="text">
-        <string>-</string>
-       </property>
-      </item>
-      <item row="0" column="3">
-       <property name="text">
-        <string>-</string>
-       </property>
-      </item>
-      <item row="1" column="0">
-       <property name="text">
-        <string>176.31.176.126</string>
-       </property>
-      </item>
-      <item row="1" column="1">
-       <property name="text">
-        <string>FRANCE</string>
-       </property>
-      </item>
-      <item row="1" column="2">
-       <property name="text">
-        <string>-</string>
-       </property>
-      </item>
-      <item row="1" column="3">
-       <property name="text">
-        <string>-</string>
-       </property>
-      </item>
-      <item row="2" column="0">
-       <property name="text">
-        <string>178.217.136.98</string>
-       </property>
-      </item>
-      <item row="2" column="1">
-       <property name="text">
-        <string>POLAND</string>
-       </property>
-      </item>
-      <item row="2" column="2">
-       <property name="text">
-        <string>-</string>
-       </property>
-      </item>
-      <item row="2" column="3">
-       <property name="text">
-        <string>-</string>
-       </property>
-      </item>
-      <item row="3" column="0">
-       <property name="text">
-        <string>210.168.200.74</string>
-       </property>
-      </item>
-      <item row="3" column="1">
-       <property name="text">
-        <string>JAPAN</string>
-       </property>
-      </item>
-      <item row="3" column="2">
-       <property name="text">
-        <string>-</string>
-       </property>
-      </item>
-      <item row="3" column="3">
-       <property name="text">
-        <string>-</string>
-       </property>
-      </item>
-     </widget>
     </item>
    </layout>
   </widget>
@@ -167,7 +223,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>400</width>
+     <width>425</width>
      <height>17</height>
     </rect>
    </property>
