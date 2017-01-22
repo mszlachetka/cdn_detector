@@ -16,82 +16,24 @@ MainWindow::~MainWindow()
 
     delete ui;
 }
-
+#include <QDebug>
 void MainWindow::on_buttonCheck_clicked()
 {
 
-    this->isCDNbyAddress = false;
-    this->isCDNbyProvider = false;
-    dns = new QDnsLookup(this);
-   connect(dns, SIGNAL(finished()),this, SLOT(getDNS()));
-
-    dns_usa = new QDnsLookup(this);
-    connect(dns_usa, SIGNAL(finished()),this, SLOT(getDNS_USA()));
-
+     dns = new QDnsLookup(this);
+     connect(dns, SIGNAL(finished()),this, SLOT(getDNS()));
      dns->setType(QDnsLookup::ANY);
-
      dns->setName(ui->lineEditHost->text());
-     dns->lookup();
-
-     dns_usa->setType(QDnsLookup::ANY);
      QHostAddress name;
-     name.setAddress("65.212.71.222");
-     dns_usa->setNameserver(name);
-     dns_usa->setName(ui->lineEditHost->text());
-     dns_usa->lookup();
+     name.setAddress(ui->tableWidget->item(current_row,0)->text());
+     dns->setNameserver(name);
+     dns->lookup();
+     ++current_row;
 
 }
 
 
-void MainWindow::getDNS_USA()
-{
-    //Check the lookup succeeded.
-    if (dns_usa->error() != QDnsLookup::NoError) {
-        const char * error = dns_usa->errorString().toStdString().c_str();
-        qWarning(error);
-        dns->deleteLater();
-        return;
-    }
-
-    if(dns_usa->hostAddressRecords().size() != 0)
-    {
-       const QDnsHostAddressRecord &record = dns_usa->hostAddressRecords().last();
-
-       addressUSA = record.value().toString();
-       ui->labelAddressUSA->setText(addressUSA);
-    }
-
-    // NS records
-    foreach (const QDnsDomainNameRecord &record, dns->nameServerRecords())
-    {
-        if(record.value().contains("cloudflare")
-           ||record.value().contains("google")
-           ||record.value().contains("akam")
-           ||record.value().contains("ovh")
-                )
-        {
-        ui->labelNS_2->setText(record.value());
-        isCDNbyProvider = true;
-        }
-        else
-        {
-            ui->labelNS_2->setText("other : "+record.value());
-                    isCDNbyProvider = false;
-        }
-    }
-
-    if(dns_usa->nameServerRecords().size() == 0)
-    {
-        ui->labelNS_2->setText("not found");
-        ui->labelAddressUSA->setText("not found");
-    }
-
-
-    if( (addressPL.contains("not") || addressPL.contains("-")))
-    {
-        this->isCDNbyAddress = false;
-    }
-    else if (!(addressPL.mid(0,3) == addressUSA.mid(0,3)))
+ /*if (!(addressPL.mid(0,3) == addressUSA.mid(0,3)))
     {
         this->isCDNbyAddress = true;
     }
@@ -103,20 +45,19 @@ void MainWindow::getDNS_USA()
     else
     {
          ui->labelCDN->setStyleSheet("QLabel { background-color : red; }");
-    }
+    }*/
 
 
-}
+
 
 void MainWindow::getDNS()
 {
-
-           //Check the lookup succeeded.
+          //Check the lookup succeeded.
            if (dns->error() != QDnsLookup::NoError) {
                const char * error = dns->errorString().toStdString().c_str();
                qWarning(error);
-               dns->deleteLater();
-               ui->labelNS->setText("-");
+               ++current_read_query;
+               if(current_read_query == ui->tableWidget->rowCount()) current_read_query = 0;
                return;
            }
 
@@ -124,8 +65,7 @@ void MainWindow::getDNS()
            {
               const QDnsHostAddressRecord &record = dns->hostAddressRecords().last();
 
-              addressPL = record.value().toString();
-              ui->labelAddressPL->setText(addressPL);
+             ui->tableWidget->item(current_read_query,3)->setText(record.value().toString());
 
            }
 
@@ -137,21 +77,74 @@ void MainWindow::getDNS()
            ||record.value().contains("akam")
                 )
         {
-        ui->labelNS->setText(record.value());
+        ui->tableWidget->item(current_read_query,2)->setText(record.value());
         isCDNbyProvider = true;
         }
         else
         {
-            ui->labelNS->setText("other : "+record.value());
+         ui->tableWidget->item(current_read_query,2)->setText("other : "+record.value());
                     isCDNbyProvider = false;
         }
     }
 
     if(dns->nameServerRecords().size() == 0)
     {
-        ui->labelNS->setText("not found");
-        ui->labelAddressPL->setText("not found");
+
+       ui->tableWidget->item(current_read_query,2)->setText("not found");
     }
+
+    if(dns->hostAddressRecords().size() == 0)
+    {
+     ui->tableWidget->item(current_read_query,3)->setText("not found");
+    }
+
+
+    ++current_read_query;
+    if(current_read_query == ui->tableWidget->rowCount())
+    {
+        current_read_query = 0;
+        current_row = 0;
+
+        if(isCDNbyProvider)
+        {
+            ui->labelCDN->setStyleSheet("QLabel { background-color : green; }");
+        }
+        else
+        {
+        bool cdnFound = false;
+        for(int i = 0;i<ui->tableWidget->rowCount();i++)
+            for(int j=i+1;j<ui->tableWidget->rowCount();j++)
+            {
+             if(ui->tableWidget->item(i,3)->text() == "not found"
+              || ui->tableWidget->item(j,3)->text() == "not found"
+             ||ui->tableWidget->item(i,2)->text() == "not found"
+                     || ui->tableWidget->item(j,2)->text() == "not found")
+             {
+                 continue;
+             }
+                if(ui->tableWidget->item(i,3)->text()!=ui->tableWidget->item(j,3)->text())
+                {
+                    ui->labelCDN->setStyleSheet("QLabel { background-color : green; }");
+                    break;
+                    cdnFound = true;
+                }
+                else
+                {
+                    ui->labelCDN->setStyleSheet("QLabel { background-color : red; }");
+                }
+
+                if(cdnFound) break;
+            }
+        }
+        isCDNbyProvider = false;
+
+    }
+    else
+    {
+        ui->buttonCheck->click();
+    }
+
+
 
 
 }
