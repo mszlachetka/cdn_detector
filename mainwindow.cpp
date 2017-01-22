@@ -43,9 +43,6 @@ void MainWindow::getDNS()
            if (dns->error() != QDnsLookup::NoError) {
                const char * error = dns->errorString().toStdString().c_str();
                qWarning(error);
-               ++current_read_query;
-               if(current_read_query == ui->tableWidget->rowCount()) current_read_query = 0;
-               return;
            }
 
            if(dns->hostAddressRecords().size() != 0)
@@ -108,15 +105,13 @@ void MainWindow::getDNS()
              {
                  continue;
              }
-                if(ui->tableWidget->item(i,3)->text()!=ui->tableWidget->item(j,3)->text())
-                {
-                    ui->labelCDN->setStyleSheet("QLabel { background-color : green; }");
+             if( ui->tableWidget->item(i,3)->text().left(7)!=ui->tableWidget->item(j,3)->text().left(7))
+             {
                     cdnFound = true;
                     break;
                 }
                 else
                 {
-                    ui->labelCDN->setStyleSheet("QLabel { background-color : red; }");
                 }
 
             }
@@ -224,9 +219,7 @@ void MainWindow::getDNS_many()
 
         if(isCDNbyProvider)
         {
-            QColor color;
-            color.setGreen(255);
-            ui->listWidget->item(current_many)->setBackgroundColor(color);
+
         }
         else
         {
@@ -239,11 +232,11 @@ void MainWindow::getDNS_many()
              {
                  continue;
              }
-                if(ui->tableWidget->item(i,3)->text()!=ui->tableWidget->item(j,3)->text())
+
+             if( ui->tableWidget->item(i,3)->text().left(7)!=ui->tableWidget->item(j,3)->text().left(7))
                 {
                     QColor color;
                     color.setGreen(255);
-                    ui->listWidget->item(current_many)->setBackgroundColor(color);
                     cdnFound = true;
                     break;
                 }
@@ -298,4 +291,18 @@ void MainWindow::on_buttonCheckManyDomains_clicked()
     dns->lookup();
     ++current_row;
 
+}
+
+void MainWindow::disableButtons()
+{
+    ui->buttonCheck->setEnabled(false);
+    ui->buttonCheckManyDomains ->setEnabled(false);
+    ui->buttonLoadAndCheckMany ->setEnabled(false);
+}
+
+void MainWindow::enableButtons()
+{
+    ui->buttonCheck->setEnabled(true);
+    ui->buttonCheckManyDomains ->setEnabled(true);
+    ui->buttonLoadAndCheckMany ->setEnabled(true);
 }

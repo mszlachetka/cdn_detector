@@ -29,6 +29,9 @@ private slots:
 
     void on_buttonCheckManyDomains_clicked();
 
+    void disableButtons();
+    void enableButtons();
+
 
 
 private:
