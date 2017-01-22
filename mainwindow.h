@@ -5,7 +5,6 @@
 #include <QDnsLookup>
 #include <QMessageBox>
 #include <QNetworkProxy>
-#include "sleeper.h"
 #include <QFileDialog>
 
 namespace Ui {
