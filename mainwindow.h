@@ -6,7 +6,8 @@
 #include <QMessageBox>
 #include <QNetworkProxy>
 #include <QFileDialog>
-
+#include <QList>
+#include <QtAlgorithms>
 namespace Ui {
 class MainWindow;
 }
@@ -50,6 +51,9 @@ private:
     bool isCDNbyProvider = false;
 
     bool something_was_found = false;
+
+    QList <QString> previous_list;
+    QList <QString> next_list;
 };
 
 #endif // MAINWINDOW_H

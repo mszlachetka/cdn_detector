@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>425</width>
-    <height>300</height>
+    <width>481</width>
+    <height>299</height>
    </rect>
   </property>
   <property name="maximumSize">
@@ -20,8 +20,8 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0" rowspan="2">
+   <layout class="QGridLayout" name="gridLayout_2">
+    <item row="0" column="0" rowspan="4">
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
        <widget class="QTableWidget" name="tableWidget">
@@ -39,11 +39,6 @@
         <row>
          <property name="text">
           <string>2</string>
-         </property>
-        </row>
-        <row>
-         <property name="text">
-          <string>3</string>
          </property>
         </row>
         <row>
@@ -88,12 +83,12 @@
         </column>
         <item row="0" column="0">
          <property name="text">
-          <string>194.224.52.37</string>
+          <string>65.212.71.222</string>
          </property>
         </item>
         <item row="0" column="1">
          <property name="text">
-          <string>SPAIN</string>
+          <string>USA</string>
          </property>
         </item>
         <item row="0" column="2">
@@ -108,12 +103,12 @@
         </item>
         <item row="1" column="0">
          <property name="text">
-          <string>194.44.211.169</string>
+          <string>176.31.176.126</string>
          </property>
         </item>
         <item row="1" column="1">
          <property name="text">
-          <string>UKRAINE</string>
+          <string>FRANCE</string>
          </property>
         </item>
         <item row="1" column="2">
@@ -128,7 +123,7 @@
         </item>
         <item row="2" column="0">
          <property name="text">
-          <string>213.25.166.115</string>
+          <string>93.179.235.254</string>
          </property>
         </item>
         <item row="2" column="1">
@@ -148,12 +143,12 @@
         </item>
         <item row="3" column="0">
          <property name="text">
-          <string>91.220.108.106</string>
+          <string>210.168.200.74</string>
          </property>
         </item>
         <item row="3" column="1">
          <property name="text">
-          <string>GREECE</string>
+          <string>JAPAN</string>
          </property>
         </item>
         <item row="3" column="2">
@@ -168,12 +163,12 @@
         </item>
         <item row="4" column="0">
          <property name="text">
-          <string>213.149.47.190</string>
+          <string>202.147.193.109</string>
          </property>
         </item>
         <item row="4" column="1">
          <property name="text">
-          <string>CROTIA</string>
+          <string>INDONESIA</string>
          </property>
         </item>
         <item row="4" column="2">
@@ -188,12 +183,12 @@
         </item>
         <item row="5" column="0">
          <property name="text">
-          <string>62.2.121.84</string>
+          <string>200.195.180.212</string>
          </property>
         </item>
         <item row="5" column="1">
          <property name="text">
-          <string>SWITZERLAND</string>
+          <string>BRAZIL</string>
          </property>
         </item>
         <item row="5" column="2">
@@ -202,26 +197,6 @@
          </property>
         </item>
         <item row="5" column="3">
-         <property name="text">
-          <string>-</string>
-         </property>
-        </item>
-        <item row="6" column="0">
-         <property name="text">
-          <string>85.89.72.33</string>
-         </property>
-        </item>
-        <item row="6" column="1">
-         <property name="text">
-          <string>SWEDEN</string>
-         </property>
-        </item>
-        <item row="6" column="2">
-         <property name="text">
-          <string>-</string>
-         </property>
-        </item>
-        <item row="6" column="3">
          <property name="text">
           <string>-</string>
          </property>
@@ -268,9 +243,9 @@
      </widget>
     </item>
     <item row="1" column="1">
-     <layout class="QVBoxLayout" name="verticalLayout_3">
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout">
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
          <widget class="QLabel" name="labelNaIle">
           <property name="text">
@@ -287,41 +262,86 @@
         </item>
        </layout>
       </item>
-      <item>
-       <widget class="QPushButton" name="buttonLoadAndCheckMany">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>Load domains</string>
-        </property>
-       </widget>
+      <item row="1" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QLabel" name="label_top50">
+          <property name="text">
+           <string>TOP50</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_top52">
+          <property name="text">
+           <string>-</string>
+          </property>
+          <property name="buddy">
+           <cstring>label_top52</cstring>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
-      <item>
-       <widget class="QPushButton" name="buttonCheckManyDomains">
-        <property name="text">
-         <string>Check for all domains</string>
-        </property>
-       </widget>
+      <item row="2" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QLabel" name="label_top250">
+          <property name="text">
+           <string>TOP250</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_top252">
+          <property name="text">
+           <string>-</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
      </layout>
     </item>
+    <item row="2" column="1">
+     <widget class="QPushButton" name="buttonLoadAndCheckMany">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="text">
+       <string>Load domains</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QPushButton" name="buttonCheckManyDomains">
+      <property name="text">
+       <string>Check for all domains</string>
+      </property>
+     </widget>
+    </item>
    </layout>
+   <zorder>listWidget</zorder>
+   <zorder>label_top50</zorder>
+   <zorder>label_top52</zorder>
+   <zorder>label_top250</zorder>
+   <zorder>label_top252</zorder>
+   <zorder></zorder>
   </widget>
+  <widget class="QStatusBar" name="statusBar"/>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>425</width>
+     <width>481</width>
      <height>17</height>
     </rect>
    </property>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
