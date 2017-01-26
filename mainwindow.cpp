@@ -54,6 +54,7 @@ void MainWindow::getDNS()
               const QDnsHostAddressRecord &record = dns->hostAddressRecords().last();
 
              ui->tableWidget->item(current_read_query,3)->setText(record.value().toString());
+             this->something_was_found = true;
 
            }
 
@@ -79,6 +80,11 @@ void MainWindow::getDNS()
     {
 
        ui->tableWidget->item(current_read_query,2)->setText("not found");
+    }
+
+    foreach (const QDnsDomainNameRecord &record, dns->canonicalNameRecords())
+    {
+        qDebug()<<"byl cname!! "+record.value();
     }
 
     if(dns->hostAddressRecords().size() == 0)
@@ -109,7 +115,7 @@ void MainWindow::getDNS()
              {
                  continue;
              }
-             if( ui->tableWidget->item(i,3)->text().left(10)!=ui->tableWidget->item(j,3)->text().left(10))
+             if( ui->tableWidget->item(i,3)->text().left(6)!=ui->tableWidget->item(j,3)->text().left(6))
              {
                     cdnFound = true;
                     break;
@@ -122,13 +128,20 @@ void MainWindow::getDNS()
                         if(cdnFound) break;
         }
         }
-        if(!cdnFound && !isCDNbyProvider)
+        if(!cdnFound && !isCDNbyProvider && this->something_was_found)
         {
                ui->labelCDN->setStyleSheet("QLabel { background-color : red; }");
+                           this->something_was_found = false;
         }
-        else
+        else if(this->something_was_found)
         {
                  ui->labelCDN->setStyleSheet("QLabel { background-color :green; }");
+                             this->something_was_found = false;
+        }
+        else
+         {
+            ui->labelCDN->setStyleSheet("QLabel { background-color :orange; }");
+            this->howManyAll--;
         }
         isCDNbyProvider = false;
 
@@ -175,6 +188,7 @@ void MainWindow::on_buttonLoadAndCheckMany_clicked()
     }
 }
 
+#include <QDebug>
 void MainWindow::getDNS_many()
 {
           //Check the lookup succeeded.
@@ -188,8 +202,10 @@ void MainWindow::getDNS_many()
               const QDnsHostAddressRecord &record = dns->hostAddressRecords().last();
 
              ui->tableWidget->item(current_read_query,3)->setText(record.value().toString());
+             this->something_was_found = true;
 
            }
+
 
     // NS records
     foreach (const QDnsDomainNameRecord &record, dns->nameServerRecords())
@@ -225,7 +241,6 @@ void MainWindow::getDNS_many()
      bool cdnFound = false;
     if(current_read_query == ui->tableWidget->rowCount())
     {
-            howProgress++;
         current_read_query = 0;
         current_row = 0;
 
@@ -245,7 +260,7 @@ void MainWindow::getDNS_many()
                  continue;
              }
 
-             if( ui->tableWidget->item(i,3)->text().left(10)!=ui->tableWidget->item(j,3)->text().left(10))
+             if( ui->tableWidget->item(i,3)->text().left(6)!=ui->tableWidget->item(j,3)->text().left(6))
                 {
                     QColor color;
                     color.setGreen(255);
@@ -259,18 +274,30 @@ void MainWindow::getDNS_many()
         }
         }
 
-        if(!cdnFound && !isCDNbyProvider)
+        if(!cdnFound && !isCDNbyProvider && this->something_was_found)
         {
             QColor color;
             color.setRed(255);
             ui->listWidget->item(current_many)->setBackgroundColor(color);
+                        this->something_was_found = false;
+                        howProgress++;
+        }
+        else if (this->something_was_found)
+        {
+            QColor color;
+            color.setGreen(255);
+            ui->listWidget->item(current_many)->setBackgroundColor(color);
+           howManyCDN++;
+                       this->something_was_found = false;
+                       howProgress++;
         }
         else
         {
             QColor color;
             color.setGreen(255);
+            color.setRed(255);
             ui->listWidget->item(current_many)->setBackgroundColor(color);
-                        howManyCDN++;
+            this->howManyAll--;
         }
 
         ui->labelNaIle->setText("Progress: "+QString::number(howProgress)+"/"+QString::number(howManyAll));
@@ -291,6 +318,7 @@ void MainWindow::getDNS_many()
     }
     else
     {
+        dns->deleteLater();
         ui->buttonCheckManyDomains->click();
     }
 }

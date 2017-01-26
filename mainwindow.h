@@ -48,6 +48,8 @@ private:
     int howProgress=1;
 
     bool isCDNbyProvider = false;
+
+    bool something_was_found = false;
 };
 
 #endif // MAINWINDOW_H

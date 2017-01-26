@@ -66,16 +66,6 @@
           <string>7</string>
          </property>
         </row>
-        <row>
-         <property name="text">
-          <string>8</string>
-         </property>
-        </row>
-        <row>
-         <property name="text">
-          <string>9</string>
-         </property>
-        </row>
         <column>
          <property name="text">
           <string>DNS</string>
@@ -98,12 +88,12 @@
         </column>
         <item row="0" column="0">
          <property name="text">
-          <string>65.212.71.222</string>
+          <string>194.224.52.37</string>
          </property>
         </item>
         <item row="0" column="1">
          <property name="text">
-          <string>USA</string>
+          <string>SPAIN</string>
          </property>
         </item>
         <item row="0" column="2">
@@ -118,12 +108,12 @@
         </item>
         <item row="1" column="0">
          <property name="text">
-          <string>176.31.176.126</string>
+          <string>194.44.211.169</string>
          </property>
         </item>
         <item row="1" column="1">
          <property name="text">
-          <string>FRANCE</string>
+          <string>UKRAINE</string>
          </property>
         </item>
         <item row="1" column="2">
@@ -138,7 +128,7 @@
         </item>
         <item row="2" column="0">
          <property name="text">
-          <string>178.217.136.98</string>
+          <string>213.25.166.115</string>
          </property>
         </item>
         <item row="2" column="1">
@@ -158,12 +148,12 @@
         </item>
         <item row="3" column="0">
          <property name="text">
-          <string>210.168.200.74</string>
+          <string>91.220.108.106</string>
          </property>
         </item>
         <item row="3" column="1">
          <property name="text">
-          <string>JAPAN</string>
+          <string>GREECE</string>
          </property>
         </item>
         <item row="3" column="2">
@@ -178,12 +168,12 @@
         </item>
         <item row="4" column="0">
          <property name="text">
-          <string>202.147.193.109</string>
+          <string>213.149.47.190</string>
          </property>
         </item>
         <item row="4" column="1">
          <property name="text">
-          <string>INDONESIA</string>
+          <string>CROTIA</string>
          </property>
         </item>
         <item row="4" column="2">
@@ -198,12 +188,12 @@
         </item>
         <item row="5" column="0">
          <property name="text">
-          <string>200.195.180.212</string>
+          <string>62.2.121.84</string>
          </property>
         </item>
         <item row="5" column="1">
          <property name="text">
-          <string>BRAZIL</string>
+          <string>SWITZERLAND</string>
          </property>
         </item>
         <item row="5" column="2">
@@ -218,12 +208,12 @@
         </item>
         <item row="6" column="0">
          <property name="text">
-          <string>197.44.124.240</string>
+          <string>85.89.72.33</string>
          </property>
         </item>
         <item row="6" column="1">
          <property name="text">
-          <string>EGYPT</string>
+          <string>SWEDEN</string>
          </property>
         </item>
         <item row="6" column="2">
@@ -232,46 +222,6 @@
          </property>
         </item>
         <item row="6" column="3">
-         <property name="text">
-          <string>-</string>
-         </property>
-        </item>
-        <item row="7" column="0">
-         <property name="text">
-          <string>66.249.145.27</string>
-         </property>
-        </item>
-        <item row="7" column="1">
-         <property name="text">
-          <string>BARBADOS</string>
-         </property>
-        </item>
-        <item row="7" column="2">
-         <property name="text">
-          <string>-</string>
-         </property>
-        </item>
-        <item row="7" column="3">
-         <property name="text">
-          <string>-</string>
-         </property>
-        </item>
-        <item row="8" column="0">
-         <property name="text">
-          <string>137.59.120.17</string>
-         </property>
-        </item>
-        <item row="8" column="1">
-         <property name="text">
-          <string>AFGANISTAN</string>
-         </property>
-        </item>
-        <item row="8" column="2">
-         <property name="text">
-          <string>-</string>
-         </property>
-        </item>
-        <item row="8" column="3">
          <property name="text">
           <string>-</string>
          </property>
