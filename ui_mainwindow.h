@@ -20,7 +20,6 @@
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
-#include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTableWidget>
@@ -34,13 +33,15 @@ class Ui_MainWindow
 public:
     QWidget *centralWidget;
     QGridLayout *gridLayout_2;
+    QPushButton *buttonLoadAndCheckMany;
+    QPushButton *buttonCheckManyDomains;
+    QListWidget *listWidget;
     QVBoxLayout *verticalLayout;
     QTableWidget *tableWidget;
     QVBoxLayout *verticalLayout_2;
     QLabel *labelCDN;
     QLineEdit *lineEditHost;
     QPushButton *buttonCheck;
-    QListWidget *listWidget;
     QGridLayout *gridLayout;
     QHBoxLayout *horizontalLayout_3;
     QLabel *labelNaIle;
@@ -51,10 +52,8 @@ public:
     QHBoxLayout *horizontalLayout;
     QLabel *label_top250;
     QLabel *label_top252;
-    QPushButton *buttonLoadAndCheckMany;
-    QPushButton *buttonCheckManyDomains;
+    QPushButton *buttonDnsServers;
     QStatusBar *statusBar;
-    QMenuBar *menuBar;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -68,6 +67,32 @@ public:
         gridLayout_2->setSpacing(6);
         gridLayout_2->setContentsMargins(11, 11, 11, 11);
         gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
+        buttonLoadAndCheckMany = new QPushButton(centralWidget);
+        buttonLoadAndCheckMany->setObjectName(QStringLiteral("buttonLoadAndCheckMany"));
+        QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::MinimumExpanding);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(buttonLoadAndCheckMany->sizePolicy().hasHeightForWidth());
+        buttonLoadAndCheckMany->setSizePolicy(sizePolicy);
+
+        gridLayout_2->addWidget(buttonLoadAndCheckMany, 3, 1, 1, 1);
+
+        buttonCheckManyDomains = new QPushButton(centralWidget);
+        buttonCheckManyDomains->setObjectName(QStringLiteral("buttonCheckManyDomains"));
+
+        gridLayout_2->addWidget(buttonCheckManyDomains, 4, 1, 1, 1);
+
+        listWidget = new QListWidget(centralWidget);
+        listWidget->setObjectName(QStringLiteral("listWidget"));
+        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(listWidget->sizePolicy().hasHeightForWidth());
+        listWidget->setSizePolicy(sizePolicy1);
+        listWidget->setMaximumSize(QSize(300, 16777215));
+
+        gridLayout_2->addWidget(listWidget, 0, 1, 1, 1);
+
         verticalLayout = new QVBoxLayout();
         verticalLayout->setSpacing(6);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
@@ -171,18 +196,7 @@ public:
         verticalLayout->addLayout(verticalLayout_2);
 
 
-        gridLayout_2->addLayout(verticalLayout, 0, 0, 4, 1);
-
-        listWidget = new QListWidget(centralWidget);
-        listWidget->setObjectName(QStringLiteral("listWidget"));
-        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(listWidget->sizePolicy().hasHeightForWidth());
-        listWidget->setSizePolicy(sizePolicy);
-        listWidget->setMaximumSize(QSize(300, 16777215));
-
-        gridLayout_2->addWidget(listWidget, 0, 1, 1, 1);
+        gridLayout_2->addLayout(verticalLayout, 0, 0, 5, 1);
 
         gridLayout = new QGridLayout();
         gridLayout->setSpacing(6);
@@ -238,34 +252,19 @@ public:
 
         gridLayout_2->addLayout(gridLayout, 1, 1, 1, 1);
 
-        buttonLoadAndCheckMany = new QPushButton(centralWidget);
-        buttonLoadAndCheckMany->setObjectName(QStringLiteral("buttonLoadAndCheckMany"));
-        QSizePolicy sizePolicy1(QSizePolicy::Minimum, QSizePolicy::MinimumExpanding);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(buttonLoadAndCheckMany->sizePolicy().hasHeightForWidth());
-        buttonLoadAndCheckMany->setSizePolicy(sizePolicy1);
+        buttonDnsServers = new QPushButton(centralWidget);
+        buttonDnsServers->setObjectName(QStringLiteral("buttonDnsServers"));
 
-        gridLayout_2->addWidget(buttonLoadAndCheckMany, 2, 1, 1, 1);
-
-        buttonCheckManyDomains = new QPushButton(centralWidget);
-        buttonCheckManyDomains->setObjectName(QStringLiteral("buttonCheckManyDomains"));
-
-        gridLayout_2->addWidget(buttonCheckManyDomains, 3, 1, 1, 1);
+        gridLayout_2->addWidget(buttonDnsServers, 2, 1, 1, 1);
 
         MainWindow->setCentralWidget(centralWidget);
+        buttonLoadAndCheckMany->raise();
+        buttonCheckManyDomains->raise();
         listWidget->raise();
-        label_top50->raise();
-        label_top52->raise();
-        label_top250->raise();
-        label_top252->raise();
+        buttonDnsServers->raise();
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QStringLiteral("statusBar"));
         MainWindow->setStatusBar(statusBar);
-        menuBar = new QMenuBar(MainWindow);
-        menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 481, 17));
-        MainWindow->setMenuBar(menuBar);
 #ifndef QT_NO_SHORTCUT
         label_top52->setBuddy(label_top52);
 #endif // QT_NO_SHORTCUT
@@ -278,6 +277,8 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", Q_NULLPTR));
+        buttonLoadAndCheckMany->setText(QApplication::translate("MainWindow", "Load domains", Q_NULLPTR));
+        buttonCheckManyDomains->setText(QApplication::translate("MainWindow", "Check for all domains", Q_NULLPTR));
         QTableWidgetItem *___qtablewidgetitem = tableWidget->horizontalHeaderItem(0);
         ___qtablewidgetitem->setText(QApplication::translate("MainWindow", "DNS", Q_NULLPTR));
         QTableWidgetItem *___qtablewidgetitem1 = tableWidget->horizontalHeaderItem(1);
@@ -285,7 +286,7 @@ public:
         QTableWidgetItem *___qtablewidgetitem2 = tableWidget->horizontalHeaderItem(2);
         ___qtablewidgetitem2->setText(QApplication::translate("MainWindow", "NS", Q_NULLPTR));
         QTableWidgetItem *___qtablewidgetitem3 = tableWidget->horizontalHeaderItem(3);
-        ___qtablewidgetitem3->setText(QApplication::translate("MainWindow", "Address", Q_NULLPTR));
+        ___qtablewidgetitem3->setText(QApplication::translate("MainWindow", "Address (One of)", Q_NULLPTR));
         QTableWidgetItem *___qtablewidgetitem4 = tableWidget->verticalHeaderItem(0);
         ___qtablewidgetitem4->setText(QApplication::translate("MainWindow", "1", Q_NULLPTR));
         QTableWidgetItem *___qtablewidgetitem5 = tableWidget->verticalHeaderItem(1);
@@ -359,8 +360,7 @@ public:
         label_top52->setText(QApplication::translate("MainWindow", "-", Q_NULLPTR));
         label_top250->setText(QApplication::translate("MainWindow", "TOP250", Q_NULLPTR));
         label_top252->setText(QApplication::translate("MainWindow", "-", Q_NULLPTR));
-        buttonLoadAndCheckMany->setText(QApplication::translate("MainWindow", "Load domains", Q_NULLPTR));
-        buttonCheckManyDomains->setText(QApplication::translate("MainWindow", "Check for all domains", Q_NULLPTR));
+        buttonDnsServers->setText(QApplication::translate("MainWindow", "Load DNS servers", Q_NULLPTR));
     } // retranslateUi
 
 };

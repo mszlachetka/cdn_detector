@@ -43,20 +43,25 @@ void MainWindow::on_buttonCheck_clicked()
 
 void MainWindow::getDNS()
 {
+    ui->tableWidget->selectRow(current_read_query);
           //Check the lookup succeeded.
            if (dns->error() != QDnsLookup::NoError) {
-               const char * error = dns->errorString().toStdString().c_str();
-               qWarning(error);
+               ui->tableWidget->item(current_read_query,2)->setText("not found");
+               ui->tableWidget->item(current_read_query,3)->setText("not found");
            }
 
-           if(dns->hostAddressRecords().size() != 0)
-           {
-              const QDnsHostAddressRecord &record = dns->hostAddressRecords().last();
+
+               for(int i=0 ;i<dns->hostAddressRecords().size();++i)
+               {
+              const QDnsHostAddressRecord &record = dns->hostAddressRecords().at(i);
 
              ui->tableWidget->item(current_read_query,3)->setText(record.value().toString());
+             this->next_list.push_back(record.value().toString());
+             if(current_read_query == 0) this->previous_list.push_back(record.value().toString());
              this->something_was_found = true;
 
-           }
+                }
+
 
     // NS records
     foreach (const QDnsDomainNameRecord &record, dns->nameServerRecords())
@@ -68,6 +73,7 @@ void MainWindow::getDNS()
         {
         ui->tableWidget->item(current_read_query,2)->setText(record.value());
         isCDNbyProvider = true;
+        break;
         }
         else
         {
@@ -88,62 +94,69 @@ void MainWindow::getDNS()
      ui->tableWidget->item(current_read_query,3)->setText("not found");
     }
 
-
     ++current_read_query;
-            bool cdnFound = false;
-    if(current_read_query == ui->tableWidget->rowCount())
+     bool cdnFound = false;
+
+     qSort(previous_list);
+     qSort(next_list);
+
+
+     if( next_list.size()!=0 && previous_list.size()!=0)
+     {
+
+        if(next_list.size()<=previous_list.size())
+        {
+       for(int i=0; i<next_list.size();i++)
+       {
+         if (!previous_list.contains(next_list[i]))
+         {
+                      cdnFound = true;
+         }
+       }
+         }
+
+         if(previous_list.size()<next_list.size())
+         {
+       for(int i=0; i<previous_list.size();i++)
+       {
+         if (!next_list.contains(previous_list[i]))
+         {
+                      cdnFound = true;
+         }
+       }
+         }
+
+     }
+
+    if(current_read_query == ui->tableWidget->rowCount() || cdnFound)
     {
         current_read_query = 0;
         current_row = 0;
 
-        if(isCDNbyProvider)
+        if(isCDNbyProvider || cdnFound)
         {
             ui->labelCDN->setStyleSheet("QLabel { background-color : green; }");
+                    something_was_found = false;
         }
-        else
-        {
-        for(int i = 0;i<ui->tableWidget->rowCount();i++)
-        {
-            for(int j=i+1;j<ui->tableWidget->rowCount();j++)
-            {
-             if(ui->tableWidget->item(i,3)->text() == "not found"
-              || ui->tableWidget->item(j,3)->text() == "not found")
-             {
-                 continue;
-             }
-             if( ui->tableWidget->item(i,3)->text().left(6)!=ui->tableWidget->item(j,3)->text().left(6))
-             {
-                    cdnFound = true;
-                    break;
-                }
-                else
-                {
-                }
-
-            }
-                        if(cdnFound) break;
-        }
-        }
-        if(!cdnFound && !isCDNbyProvider && this->something_was_found)
+        else if(!cdnFound && !isCDNbyProvider && this->something_was_found)
         {
                ui->labelCDN->setStyleSheet("QLabel { background-color : red; }");
                            this->something_was_found = false;
         }
-        else if(this->something_was_found)
-        {
-                 ui->labelCDN->setStyleSheet("QLabel { background-color :green; }");
-                             this->something_was_found = false;
-        }
         else
          {
             ui->labelCDN->setStyleSheet("QLabel { background-color :orange; }");
-            this->howManyAll--;
+                    something_was_found = false;
         }
         isCDNbyProvider = false;
-
+        previous_list.clear();
+        next_list.clear();
     }
     else
     {
+        previous_list=next_list;
+        next_list.clear();
+        dns->deleteLater();
         ui->buttonCheck->click();
     }
 }
@@ -184,10 +197,8 @@ void MainWindow::on_buttonLoadAndCheckMany_clicked()
     }
 }
 
-#include <QDebug>
 void MainWindow::getDNS_many()
 {
-    qDebug()<<current_read_query;
 
     ui->tableWidget->selectRow(current_read_query);
           //Check the lookup succeeded.
@@ -208,7 +219,6 @@ void MainWindow::getDNS_many()
 
                 }
 
-               if(current_read_query > 0)qDebug()<<"nowa lista new :"<<next_list;
 
 
     // NS records
@@ -216,7 +226,6 @@ void MainWindow::getDNS_many()
     {
 
         ui->tableWidget->item(current_read_query,2)->setText(record.value());
-        //isCDNbyProvider = true;
     }
 
     if(dns->nameServerRecords().size() == 0)
@@ -264,17 +273,14 @@ void MainWindow::getDNS_many()
 
      }
 
-     qDebug()<<cdnFound;
 
     if(current_read_query == ui->tableWidget->rowCount() || cdnFound == true)
     {
-        qDebug()<<"currentqerey wieksze niz 0"<<current_read_query;
         current_read_query = 0;
         current_row = 0;
 
         if(!cdnFound && !isCDNbyProvider && this->something_was_found)
         {
-                    qDebug()<<"nie ma cdn!";
             QColor color;
             color.setRed(255);
             ui->listWidget->item(current_many)->setBackgroundColor(color);
@@ -283,18 +289,15 @@ void MainWindow::getDNS_many()
         }
         else if (cdnFound || isCDNbyProvider)
         {
-                    qDebug()<<"JEST CDN!";
             QColor color;
             color.setGreen(255);
             ui->listWidget->item(current_many)->setBackgroundColor(color);
            howManyCDN++;
                        this->something_was_found = false;
                        howProgress++;
-                               qDebug()<<previous_list<<next_list;
         }
         else
         {
-                    qDebug()<<"brak odpowiedzi!";
             QColor color;
             color.setGreen(255);
             color.setRed(255);
@@ -323,15 +326,8 @@ void MainWindow::getDNS_many()
     }
     else
     {
-                qDebug()<<"NIE MA CDN!";
-
-        qDebug()<<previous_list<<next_list;
         previous_list = next_list;
 
-       /* for(int i =0 ;i<next_list.size();++i)
-        {
-            previous_list.replace(i,next_list[i]);
-        }*/
 
         next_list.clear();
         dns->deleteLater();
@@ -368,4 +364,48 @@ void MainWindow::enableButtons()
     ui->buttonCheck->setEnabled(true);
     ui->buttonCheckManyDomains ->setEnabled(true);
     ui->buttonLoadAndCheckMany ->setEnabled(true);
+}
+
+void MainWindow::on_buttonDnsServers_clicked()
+{
+    QString fileName = QFileDialog::getOpenFileName(this,
+        tr("LOAD DNS SERVERS"), "/home/", tr("TXT (*.txt)"));
+
+    if(fileName.contains(".txt"))
+    {
+
+    int rowCnt = ui->tableWidget->rowCount();
+    for(int i = 0;i<rowCnt;++i)
+    {
+           ui->tableWidget->removeRow(0);
+    }
+    QFile mFile(fileName);
+
+    mFile.open(QIODevice::ReadOnly );
+    QTextStream mFileData(&mFile);
+    QString line;
+
+         while (!mFileData.atEnd())
+         {
+           line= mFileData.readLine();
+           ui->tableWidget->insertRow(0);
+
+           QTableWidgetItem *itab0 = new QTableWidgetItem(line.split(" ").at(0));
+           QTableWidgetItem *itab1= new QTableWidgetItem(line.split(" ").at(1));
+           QTableWidgetItem *itab2= new QTableWidgetItem("-");
+           QTableWidgetItem *itab3= new QTableWidgetItem("-");
+
+           ui->tableWidget->setItem(0,0,itab0);
+           ui->tableWidget->setItem(0,1,itab1);
+           ui->tableWidget->setItem(0,2,itab2);
+           ui->tableWidget->setItem(0,3,itab3);
+         }
+
+
+
+    mFile.close();
+
+    ui->labelNaIle->setText("Progress: "+QString::number(howProgress)+"/"+QString::number(howManyAll));
+    ui->labelProcentowo->setText("CDN found in "+QString::number(howManyCDN/howManyAll)+"%");
+    }
 }

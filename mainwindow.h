@@ -35,6 +35,8 @@ private slots:
 
 
 
+    void on_buttonDnsServers_clicked();
+
 private:
     Ui::MainWindow *ui;
 
