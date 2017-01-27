@@ -200,6 +200,7 @@ void MainWindow::on_buttonLoadAndCheckMany_clicked()
 void MainWindow::getDNS_many()
 {
 
+
     ui->tableWidget->selectRow(current_read_query);
           //Check the lookup succeeded.
            if (dns->error() != QDnsLookup::NoError) {
@@ -218,6 +219,7 @@ void MainWindow::getDNS_many()
              this->something_was_found = true;
 
                 }
+
 
 
 
@@ -274,13 +276,16 @@ void MainWindow::getDNS_many()
      }
 
 
+
     if(current_read_query == ui->tableWidget->rowCount() || cdnFound == true)
     {
+
         current_read_query = 0;
         current_row = 0;
 
         if(!cdnFound && !isCDNbyProvider && this->something_was_found)
         {
+
             QColor color;
             color.setRed(255);
             ui->listWidget->item(current_many)->setBackgroundColor(color);
@@ -289,6 +294,7 @@ void MainWindow::getDNS_many()
         }
         else if (cdnFound || isCDNbyProvider)
         {
+
             QColor color;
             color.setGreen(255);
             ui->listWidget->item(current_many)->setBackgroundColor(color);
@@ -298,11 +304,13 @@ void MainWindow::getDNS_many()
         }
         else
         {
+
             QColor color;
             color.setGreen(255);
             color.setRed(255);
             ui->listWidget->item(current_many)->setBackgroundColor(color);
             this->howManyAll--;
+                                   this->something_was_found = false;
         }
 
         ui->labelNaIle->setText("Progress: "+QString::number(howProgress)+"/"+QString::number(howManyAll));
@@ -326,6 +334,7 @@ void MainWindow::getDNS_many()
     }
     else
     {
+
         previous_list = next_list;
 
 
@@ -334,6 +343,7 @@ void MainWindow::getDNS_many()
         ui->buttonCheckManyDomains->click();
     }
 }
+
 
 void MainWindow::on_buttonCheckManyDomains_clicked()
 {
