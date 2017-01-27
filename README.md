@@ -10,5 +10,7 @@ We may have 3 cases :
 Those CDN cases are now detected.
 
 Domain are read from .txt file.
-DNS Ssrvers are read from .txt file. 
+
+DNS Servers are read from .txt file. 
+
 Remark : They have to be recursive servers!
