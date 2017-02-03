@@ -40,7 +40,7 @@ void MainWindow::on_buttonCheck_clicked()
 
 
 
-
+#include <QDebug>
 void MainWindow::getDNS()
 {
     ui->tableWidget->selectRow(current_read_query);
@@ -63,24 +63,28 @@ void MainWindow::getDNS()
                 }
 
 
-    // NS records
-    foreach (const QDnsDomainNameRecord &record, dns->nameServerRecords())
-    {
-        if(record.value().contains("cloudflare")
-           ||record.value().contains("google")
-           ||record.value().contains("akam")
-                )
-        {
-        ui->tableWidget->item(current_read_query,2)->setText(record.value());
-        isCDNbyProvider = true;
-        break;
-        }
-        else
-        {
-         ui->tableWidget->item(current_read_query,2)->setText("other : "+record.value());
-                    isCDNbyProvider = false;
-        }
-    }
+               // NS records
+               foreach (const QDnsDomainNameRecord &record, dns->nameServerRecords())
+               {
+                   if(record.value().contains("cloudflare")
+                      ||record.value().contains("google")
+                      ||record.value().contains("akam")
+                      ||record.value().contains("cdn")
+                      ||record.value().contains("edg")
+                      ||record.value().contains("max")
+
+                           )
+                   {
+                   ui->tableWidget->item(current_read_query,2)->setText(record.value());
+                   isCDNbyProvider = true;
+                   break;
+                   }
+                   else
+                   {
+                    ui->tableWidget->item(current_read_query,2)->setText("other : "+record.value());
+                               isCDNbyProvider = false;
+                   }
+               }
 
     if(dns->nameServerRecords().size() == 0)
     {
@@ -130,6 +134,8 @@ void MainWindow::getDNS()
 
     if(current_read_query == ui->tableWidget->rowCount() || cdnFound)
     {
+
+
         current_read_query = 0;
         current_row = 0;
 
@@ -137,16 +143,25 @@ void MainWindow::getDNS()
         {
             ui->labelCDN->setStyleSheet("QLabel { background-color : green; }");
                     something_was_found = false;
+                    qDebug()<<"jest cdn";
+                    qDebug()<<"previuos:"<<previous_list;
+                    qDebug()<<"next:"<<next_list;
         }
         else if(!cdnFound && !isCDNbyProvider && this->something_was_found)
         {
                ui->labelCDN->setStyleSheet("QLabel { background-color : red; }");
                            this->something_was_found = false;
+               qDebug()<<"nie ma wcale cdn";
+               qDebug()<<"previuos:"<<previous_list;
+               qDebug()<<"next:"<<next_list;
         }
         else
          {
             ui->labelCDN->setStyleSheet("QLabel { background-color :orange; }");
                     something_was_found = false;
+                    qDebug()<<"brak danych";
+                    qDebug()<<"previuos:"<<previous_list;
+                    qDebug()<<"next:"<<next_list;
         }
         isCDNbyProvider = false;
         previous_list.clear();
@@ -154,6 +169,9 @@ void MainWindow::getDNS()
     }
     else
     {
+        qDebug()<<"nie ma jeszcze cdn";
+        qDebug()<<"previuos:"<<previous_list;
+        qDebug()<<"next:"<<next_list;
         previous_list=next_list;
         next_list.clear();
         dns->deleteLater();
@@ -223,12 +241,41 @@ void MainWindow::getDNS_many()
 
 
 
-    // NS records
-    foreach (const QDnsDomainNameRecord &record, dns->nameServerRecords())
-    {
-
-        ui->tableWidget->item(current_read_query,2)->setText(record.value());
-    }
+               // NS records
+               foreach (const QDnsDomainNameRecord &record, dns->nameServerRecords())
+               {
+                   if(record.value().contains("cloudflare")
+                      ||record.value().contains("google")
+                      ||record.value().contains("akam")
+                           ||record.value().contains("amazon")
+                           ||record.value().contains("cache")
+                           ||record.value().contains("jquery")
+                           ||record.value().contains("lime")
+                           ||record.value().contains("boot")
+                           ||record.value().contains("msft")
+                           ||record.value().contains("yaho")
+                      ||record.value().contains("cdn")
+                      ||record.value().contains("max")
+                        ||record.value().contains("aads")
+                        ||record.value().contains("aads")
+                            ||record.value().contains("ay1")
+                            ||record.value().contains("azureedge")
+                            ||record.value().contains("c3c")
+                            ||record.value().contains("cloudfront")
+                            ||record.value().contains("incapdns")
+                            ||record.value().contains("edgecast")
+                           )
+                   {
+                   ui->tableWidget->item(current_read_query,2)->setText(record.value());
+                   isCDNbyProvider = true;
+                   break;
+                   }
+                   else
+                   {
+                    ui->tableWidget->item(current_read_query,2)->setText("other : "+record.value());
+                               isCDNbyProvider = false;
+                   }
+               }
 
     if(dns->nameServerRecords().size() == 0)
     {
@@ -261,8 +308,7 @@ void MainWindow::getDNS_many()
          }
        }
          }
-
-         if(previous_list.size()<next_list.size())
+        else if(previous_list.size()<next_list.size())
          {
        for(int i=0; i<previous_list.size();i++)
        {
@@ -277,7 +323,7 @@ void MainWindow::getDNS_many()
 
 
 
-    if(current_read_query == ui->tableWidget->rowCount() || cdnFound == true)
+    if(current_read_query == ui->tableWidget->rowCount() || cdnFound == true ||isCDNbyProvider==true )
     {
 
         current_read_query = 0;
@@ -291,6 +337,9 @@ void MainWindow::getDNS_many()
             ui->listWidget->item(current_many)->setBackgroundColor(color);
                         this->something_was_found = false;
                         howProgress++;
+                        qDebug()<<"nie ma cdn";
+                        qDebug()<<"previuos:"<<previous_list;
+                        qDebug()<<"next:"<<next_list;
         }
         else if (cdnFound || isCDNbyProvider)
         {
@@ -301,6 +350,9 @@ void MainWindow::getDNS_many()
            howManyCDN++;
                        this->something_was_found = false;
                        howProgress++;
+                       qDebug()<<"jest cdn";
+                       qDebug()<<"previuos:"<<previous_list;
+                       qDebug()<<"next:"<<next_list;
         }
         else
         {
@@ -321,6 +373,9 @@ void MainWindow::getDNS_many()
         current_many++;
         if(current_many != ui->listWidget->count())
         {
+            qDebug()<<"jeszcze nie wiadomo";
+            qDebug()<<"previuos:"<<previous_list;
+            qDebug()<<"next:"<<next_list;
             ui->buttonCheckManyDomains->click();
         }
         else
